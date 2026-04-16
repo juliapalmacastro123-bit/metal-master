@@ -1,4 +1,7 @@
 streamlit
-cloudinary
-mercadopago
+librosa
+soundfile
+pydub
+numpy
 pandas
+
