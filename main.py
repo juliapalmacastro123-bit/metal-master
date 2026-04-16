@@ -1,103 +1,81 @@
 import streamlit as st
-import cloudinary.uploader
-import os
+import pandas as pd
+from datetime import datetime
+import numpy as np
+import librosa
+import soundfile as sf
+import io
 
-# --- 1. CONFIGURACIÓN DE TUS LLAVES (CLOUDINARY) ---
-cloudinary.config(
-    cloud_name="dkrqrvxky", 
-    api_key="411418886436225", 
-    api_secret="7RoNJk_vklFFeK4LTC1kPtqRcFU", 
-    secure=True
-)
+# --- CONFIGURACIÓN DE PÁGINA ---
+st.set_page_config(page_title="METAL MASTER PRO", page_icon="🎸")
 
-# --- 2. TU LINK DE COBRO REAL (MERCADO PAGO) ---
-LINK_DE_PAGO_UNICO = "https://mpago.la/2dMaFNh"
-
-# --- 3. DISEÑO DE LA MAZMORRA (CSS) ---
-st.set_page_config(page_title="METAL MASTER PRO", page_icon="🤘")
-
+# ESTILO METALERO TECH
 st.markdown("""
     <style>
-    .stApp { background-color: #000000; color: #DAA520; }
-    .stButton>button { 
-        background-color: #660000; color: white; 
-        border-radius: 10px; height: 3em; width: 100%;
-        font-weight: bold; border: 2px solid #DAA520;
-    }
-    h1, h2, h3 { color: #8a0000; text-align: center; font-weight: bold; }
-    .stTextInput>div>div>input { background-color: #1a1a1a; color: white; border: 1px solid #8a0000; }
+    .main { background-color: #000000; color: #FFD700; }
+    h1 { color: #FF0000; text-shadow: 3px 3px #000; font-family: 'Arial Black'; }
+    .stButton>button { background-color: #FF0000; color: white; border-radius: 10px; font-weight: bold; width: 100%; height: 3.5em; border: 2px solid #FFD700; }
+    .stTextInput>div>div>input { background-color: #1a1a1a; color: #FFD700; border: 1px solid #FF0000; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 4. BASE DE DATOS DE SUSCRIPTORES (SIMULADA) ---
-# Después la conectaremos a tu Google Sheets para que sea 100% automático.
-if 'lista_dioses' not in st.session_state:
-    st.session_state.lista_dioses = ["tu_correo_admin@gmail.com"]
+st.title("🎸 METAL MASTER PRO")
+st.write("### El Horno de la Maldad: Sonido de Estudio Profesional")
 
-# --- 5. LÓGICA DE ACCESO ---
-if 'acceso_concedido' not in st.session_state:
-    st.session_state.acceso_concedido = False
+# --- ACCESO VIP (TU LLAVE MAESTRA) ---
+vips = ["Julia Palma Castro 123@gmail.com"] 
 
-# PANTALLA DE REGISTRO / PAGO
-if not st.session_state.acceso_concedido:
-    st.title("🤘 METAL MASTER PRO 🤘")
-    st.subheader("🕯️ IDENTIFÍCATE O PAGA EL TRIBUTO 🕯️")
-    
-    correo = st.text_input("INTRODUCE TU CORREO PARA EL RITUAL:").lower().strip()
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("VERIFICAR ESTATUS"):
-            if correo in st.session_state.lista_dioses:
-                st.session_state.acceso_concedido = True
-                st.session_state.usuario = correo
-                st.rerun()
-            else:
-                st.error("❌ NO ESTÁS SUSCRITO O EL PAGO NO HA CAÍDO.")
+# CLIENTES (Lista de prueba)
+usuarios = {
+    'cliente_ejemplo@mail.com': '2026-12-31',
+    'erizo_de_prueba@mail.com': '2024-01-01'
+}
 
-    with col2:
-        # BOTÓN QUE MANDA A TU LINK DE MERCADO PAGO
-        st.link_button("🔥 PAGAR $200 (SUSCRIPCIÓN)", LINK_DE_PAGO_UNICO)
+# --- ZONA DE ACCESO ---
+st.sidebar.header("💀 ACCESO AL ESTUDIO")
+email_usuario = st.sidebar.text_input("Pon tu pinche correo:")
 
-    st.markdown("---")
-    st.info("💡 Instrucciones: \n1. Paga tu suscripción. \n2. Pon tu correo arriba. \n3. Dale a 'Verificar' para liberar la Maldad Pura.")
+acceso_concedido = False
 
-# PANTALLA DE TRABAJO (Solo si ya pagó)
-else:
-    st.title("🤘 FORJA DE ALMAS 🤘")
-    st.write(f"Suscripción activa para: **{st.session_state.usuario}**")
-    
-    if st.button("CERRAR SESIÓN"):
-        st.session_state.acceso_concedido = False
-        st.rerun()
+if email_usuario:
+    if email_usuario in vips:
+        st.sidebar.success("🤘 ¡QUÉ ONDA, JEFE! ACCESO TOTAL.")
+        acceso_concedido = True
+    elif email_usuario in usuarios:
+        fecha_vencimiento = datetime.strptime(usuarios[email_usuario], '%Y-%m-%d')
+        if datetime.now() <= fecha_vencimiento:
+            st.sidebar.success(f"🔥 Activo hasta: {usuarios[email_usuario]}")
+            acceso_concedido = True
+        else:
+            st.error("🚫 NO MAMES GÜEY, YA SE TE ACABÓ TU PUTO MES")
+            st.subheader("Paga para seguir disfrutando esta mierda, no seas pinche vato erizo")
+            st.markdown("[👉 **SOLTAR LA LANA AQUÍ ($200)**](https://mpago.la/2dMaFNh)")
+    else:
+        st.sidebar.warning("Ese correo ni existe. No seas codo y paga.")
+        st.markdown("[👉 **REGISTRARME Y PAGAR ($200)**](https://mpago.la/2dMaFNh)")
 
-    st.markdown("---")
-    
-    archivo = st.file_uploader("SUBE AQUÍ TU CHINGADERA (Audio MP3)", type=["mp3"])
-    
-    if archivo:
-        if st.button("EJECUTAR MALDAD PURA"):
-            with st.spinner("🔥 TRANSFORMANDO MUGRE EN ORO..."):
-                try:
-                    # Guardar temporalmente
-                    with open("temp.mp3", "wb") as f:
-                        f.write(archivo.getbuffer())
-                    
-                    # Proceso Cloudinary (La IA que masteriza)
-                    res = cloudinary.uploader.upload(
-                        "temp.mp3", 
-                        resource_type = "video",
-                        transformation = [
-                            {"effect": "improve:outdoor:80"},
-                            {"effect": "volume:max"}
-                        ]
-                    )
-                    
-                    st.success("✅ ¡ORO PURO FORJADO!")
-                    st.audio(res['secure_url'])
-                    st.markdown(f"### [📥 DESCARGAR AQUÍ]({res['secure_url']})")
-                
-                except Exception as e:
-                    st.error(f"⚠️ EL RITUAL FALLÓ: {e}")
-              
+# --- PROCESADOR DE AUDIO (EL PRESET DE LA MALDAD) ---
+if acceso_concedido:
+    st.write("---")
+    st.write("#### ⚡ Sube tu rola culera:")
+    uploaded_file = st.file_uploader("", type=['wav', 'mp3'])
+
+    if uploaded_file:
+        if st.button("🔥 PULIR CON EL PRESET DE LA MALDAD"):
+            with st.spinner("Metiendo tecnología de Gojira y Megadeth..."):
+                y, sr = librosa.load(uploaded_file)
+                # EL PRESET: Brillo + Compresión Pro
+                y_sharp = librosa.effects.preemphasis(y)
+                y_final = np.clip(y_sharp * 2.2, -1.0, 1.0) 
+
+                buffer = io.BytesIO()
+                sf.write(buffer, y_final, sr, format='WAV')
+                buffer.seek(0)
+
+                st.success("✅ ¡PULIDO COMPLETO! Ya no suena a basura:")
+                st.audio(buffer, format='audio/wav')
+                st.download_button(label="📥 DESCARGAR MASTER PRO", data=buffer, file_name="master_metal_pro.wav", mime="audio/wav")
+
+st.markdown("---")
+st.caption("Metal Master Pro © 2026 - No se aceptan lloros de metaleros de cristal.")
+        
