@@ -7,12 +7,12 @@
     <style>
         body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 10px; margin: 0; box-sizing: border-box; overflow-x: hidden; min-height: 100vh; position: relative; }
         
-        /* TU LLAVE MAESTRA: MARCA DE AGUA MORDIDA EN LA ESQUINA */
+        /* LA LLAVE MAESTRA MORDIDA (ESQUINA INFERIOR DERECHA) */
         #erick-key { 
-            position: fixed; bottom: 0; right: 0; width: 45px; height: 45px; 
-            cursor: pointer; opacity: 0.12; z-index: 999; padding: 5px;
+            position: fixed; bottom: 0; right: 0; width: 50px; height: 50px; 
+            cursor: pointer; opacity: 0.1; z-index: 1000; 
         }
-        #erick-key svg { fill: #440000; width: 100%; height: 100%; }
+        #erick-key svg { fill: #330000; width: 100%; height: 100%; }
 
         #bunker { 
             border: 3px solid #f00; padding: 15px; box-shadow: 0 0 25px #f00; 
@@ -20,7 +20,8 @@
             width: 100%; max-width: 380px; margin-top: 5px; box-sizing: border-box;
         }
 
-        h1 { text-shadow: 2px 2px #800; font-size: 1.7rem; margin: 10px 0; letter-spacing: 2px; }
+        /* SI ESTO SE VE BLANCO, YA SE ACTUALIZÓ */
+        h1 { color: #fff; text-shadow: 2px 2px #f00; font-size: 1.7rem; margin: 10px 0; letter-spacing: 2px; }
         
         .precios { margin: 10px 0; font-size: 0.75rem; color: #0f0; border-collapse: collapse; width: 100%; }
         .precios th { color: #fff; border-bottom: 2px solid #f00; padding: 6px; background: #1a0000; }
@@ -47,7 +48,6 @@
             border: none; cursor: pointer; border-radius: 5px; width: 100%; 
             box-shadow: 0 5px #800; font-size: 1.1rem; text-transform: uppercase;
         }
-        button:active { transform: translateY(3px); box-shadow: 0 2px #800; }
 
         #descarga-zona { display: none; margin-top: 20px; border-top: 2px dashed #0f0; padding-top: 15px; }
         .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: block; margin-top: 10px; border-radius: 5px; }
@@ -85,7 +85,7 @@
             <option value="blues">10. BLUES / HARD ROCK (Soul)</option>
         </select>
 
-        <button id="btn-detonar">DETONAR METAMORFOSIS! 💥 <span class="en" style="color:#000; font-weight:bold;">(MASTERING)</span></button>
+        <button id="btn-detonar">DETONAR! 💥 <span class="en" style="color:#000; font-weight:bold;">(MASTERING)</span></button>
 
         <div id="descarga-zona">
             <h3 style="color: #0f0;">MÁSTER LISTO <span class="en">(READY)</span></h3>
@@ -103,47 +103,43 @@
             const clave = prompt("DI LA FRASE DE PODER:");
             if (clave && clave.toLowerCase().includes("abreme esta mierda 666")) {
                 document.getElementById('zona-pago').style.display = 'none';
-                alert("MODO MAESTRO ACTIVADO. EL HORNO ES TUYO GRATIS.");
+                alert("MODO MAESTRO ACTIVADO.");
             }
         }
 
         document.getElementById('btn-detonar').onclick = async () => {
             const file = document.getElementById('archivo').files[0];
-            if (!file) return alert("Sube el track primero.");
-            
+            if (!file) return alert("Sube el track.");
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const reader = new FileReader();
-
             reader.onload = async (e) => {
                 const buffer = await audioCtx.decodeAudioData(e.target.result);
                 const source = audioCtx.createBufferSource();
                 source.buffer = buffer;
-
-                // MOTOR DE AUDIO PROFESIONAL (SIN BARRIDO)
                 const eq = audioCtx.createBiquadFilter();
                 eq.type = "highshelf"; eq.frequency.value = 5000; eq.gain.value = 9;
-
                 const comp = audioCtx.createDynamicsCompressor();
                 comp.threshold.value = -15; comp.ratio.value = 14;
-
-                const gain = audioCtx.createGain(); 
-                gain.gain.value = 3.1;
-
+                const gain = audioCtx.createGain(); gain.gain.value = 3.1;
                 source.connect(eq); eq.connect(comp); comp.connect(gain); gain.connect(audioCtx.destination);
                 const dest = audioCtx.createMediaStreamDestination();
                 gain.connect(dest);
                 const recorder = new MediaRecorder(dest.stream);
                 const chunks = [];
-
                 recorder.ondataavailable = ev => chunks.push(ev.data);
                 recorder.onstop = () => {
                     const blob = new Blob(chunks, { type: 'audio/mp3' });
                     const url = URL.createObjectURL(blob);
                     document.getElementById('reproductor').src = url;
                     document.getElementById('link-descarga').href = url;
-                    document.getElementById('link-descarga').download = "Master_Arsenal.mp3";
+                    document.getElementById('link-descarga').download = "Arsenal_Master.mp3";
                     document.getElementById('descarga-zona').style.display = 'block';
                 };
                 recorder.start(); source.start(0);
-                source.onended = ()
-        
+                source.onended = () => recorder.stop();
+            };
+            reader.readAsArrayBuffer(file);
+        };
+    </script>
+</body>
+</html>
