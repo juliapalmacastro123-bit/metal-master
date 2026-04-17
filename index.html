@@ -3,175 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL ARSENAL: EL HORNO DE LA METAMORFOSIS</title>
+    <title>EL ARSENAL 666</title>
     <style>
-        body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
-        #bunker { border: 3px solid #f00; padding: 20px; box-shadow: 0 0 25px #f00; display: inline-block; background: #050505; border-radius: 12px; max-width: 95%; margin-top: 10px; }
-        h1 { text-shadow: 3px 3px #800; font-size: 2.2rem; color: #f00; letter-spacing: 2px; margin-bottom: 5px; }
-        h2 { color: #fff; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase; }
+        body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 20px; overflow-x: hidden; }
         
-        /* ALERTA CADENERO */
-        #cadenero-alerta { display: none; background: #f00; color: #fff; padding: 20px; border: 4px double #fff; margin-bottom: 20px; font-weight: bold; font-size: 1.3rem; }
+        /* LLAVE MAESTRA: Pentagrama dibujado con código (SVG) */
+        #pentagrama-llave {
+            position: fixed; bottom: 15px; right: 15px; width: 50px; height: 50px;
+            cursor: pointer; opacity: 0.2; z-index: 1000; filter: drop-shadow(0 0 5px #f00);
+        }
+        #pentagrama-llave:hover { opacity: 1; }
 
-        /* TABLA DE PRECIOS UNIFICADA */
-        .precios { margin: 15px 0; font-size: 0.8rem; color: #0f0; border-collapse: collapse; width: 100%; }
-        .precios th { color: #fff; text-transform: uppercase; border-bottom: 2px solid #f00; padding: 8px; background: #1a0000; font-size: 0.7rem; }
+        #bunker { 
+            border: 3px solid #f00; padding: 20px; box-shadow: 0 0 25px #f00; 
+            display: inline-block; background: #050505; border-radius: 12px; 
+            max-width: 95%; margin-top: 10px; position: relative;
+        }
+
+        h1 { text-shadow: 3px 3px #800; font-size: 2rem; margin: 10px 0; }
+        h2 { color: #fff; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+
+        .precios { margin: 15px 0; font-size: 0.85rem; color: #0f0; border-collapse: collapse; width: 100%; }
+        .precios th { color: #fff; border-bottom: 2px solid #f00; padding: 8px; background: #1a0000; }
         .precios td { border: 1px solid #222; padding: 10px; }
-        .destacado { color: #ff0; font-weight: bold; border: 1px solid #ff0 !important; }
         
-        /* BOTÓN DE PAGO */
-        .btn-pago { background: #0f0; color: #000; padding: 18px; font-size: 1rem; font-weight: bold; text-decoration: none; display: block; margin: 20px auto; border-radius: 8px; border: 3px solid #fff; text-transform: uppercase; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(0, 255, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); } }
+        .btn-pago { background: #0f0; color: #000; padding: 18px; font-size: 1rem; font-weight: bold; text-decoration: none; display: block; margin: 20px auto; border-radius: 8px; border: 3px solid #fff; text-transform: uppercase; }
         
-        /* INTERFAZ DEL MOTOR */
-        select { background: #000; color: #f00; border: 2px solid #f00; padding: 12px; font-weight: bold; width: 100%; margin-bottom: 15px; font-size: 0.9rem; }
-        input[type="file"] { color: #fff; margin-bottom: 20px; width: 100%; font-size: 0.8rem; }
+        #interfaz-motor { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; }
         
-        button { background: #f00; color: #000; font-weight: bold; padding: 20px; border: none; cursor: pointer; border-radius: 5px; text-transform: uppercase; font-size: 1.1rem; width: 100%; box-shadow: 0 6px #800; }
-        button:active { box-shadow: 0 2px #800; transform: translateY(4px); }
-        button:disabled { background: #333 !important; color: #666 !important; cursor: not-allowed !important; box-shadow: none; }
+        select { background: #000; color: #f00; border: 2px solid #f00; padding: 12px; font-weight: bold; width: 100%; margin-bottom: 15px; }
+        input[type="file"] { color: #fff; margin-bottom: 20px; width: 100%; }
         
-        /* ZONA DE DESCARGA */
+        button { background: #f00; color: #000; font-weight: bold; padding: 20px; border: none; cursor: pointer; border-radius: 5px; width: 100%; box-shadow: 0 6px #800; font-size: 1.1rem; }
+        button:active { transform: translateY(4px); box-shadow: 0 2px #800; }
+
         #descarga-zona { display: none; margin-top: 30px; border-top: 3px dashed #0f0; padding-top: 20px; }
-        .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; border-radius: 5px; width: 100%; font-size: 1.1rem; border: 2px solid #fff; }
-        
-        .en-small { display: block; font-size: 0.65rem; color: #aaa; text-transform: none; font-style: italic; margin-top: 2px; }
+        .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: block; margin-top: 15px; border-radius: 5px; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-    <div id="cadenero-alerta">
-        🚨 ¡GRITO GUTURAL! 🚨<br><br>
-        NO SEAS VATO ERIZO.<br>
-        <span style="font-size: 0.8rem;">VPN OR FALSE LOCATION DETECTED. ACCESS DENIED.</span>
+    <div id="pentagrama-llave" onclick="accesoMaestro()">
+        <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#f00" stroke-width="2"/>
+            <path d="M50 5 L63 38 L95 38 L69 59 L79 92 L50 72 L21 92 L31 59 L5 38 L37 38 Z" fill="none" stroke="#f00" stroke-width="2"/>
+        </svg>
     </div>
 
-    <h1>🎸 EL ARSENAL 🤘</h1>
-    <h2>EL HORNO DE LA METAMORFOSIS <span class="en-small">(THE METAMORPHOSIS OVEN)</span></h2>
-
     <div id="bunker">
+        <h1>🎸 EL ARSENAL 🤘</h1>
+        <h2>EL HORNO DE LA METAMORFOSIS</h2>
+
         <table class="precios">
-            <tr>
-                <th>PRODUCCIÓN<br><small>(PRODUCTION)</small></th>
-                <th>MÉXICO</th>
-                <th>GLOBAL<br><small>(USD/EUR)</small></th>
-            </tr>
+            <tr><th>PRODUCCIÓN</th><th>MÉXICO</th><th>GLOBAL (USD)</th></tr>
             <tr><td>1 Song</td><td>$100</td><td>$20</td></tr>
-            <tr><td>6 Songs (EP)</td><td>$350</td><td>$70</td></tr>
-            <tr class="destacado"><td>8 Songs (LP)</td><td>$500</td><td>$95</td></tr>
+            <tr style="color: #ff0; font-weight: bold;"><td>8 Songs (LP)</td><td>$500</td><td>$95</td></tr>
         </table>
 
-        <a href="https://link.mercadopago.com.mx/elarsenalerick" target="_blank" class="btn-pago">
-            💰 1. PAGA AQUÍ PARA ENCENDER EL HORNO
-            <span class="en-small" style="color:#000;">(PAY HERE TO IGNITE THE OVEN)</span>
-        </a>
+        <a href="https://link.mercadopago.com.mx/elarsenalerick" target="_blank" class="btn-pago">💰 1. PAGA AQUÍ / PAY HERE</a>
 
         <div id="interfaz-motor">
-            <p style="color: #ccc; font-size: 1rem;">2. Mete tu rola al horno: <span class="en-small">Upload your track:</span></p>
-            <input type="file" id="archivo" accept="audio/*"><br>
-
+            <p style="color: #ccc; font-size: 0.9rem;">2. Sube tu track (.mp3, .wav):</p>
+            <input type="file" id="archivo" accept="audio/*">
+            
             <select id="genero">
-                <option value="death">DEATH / BLACK METAL (Wall of Sound)</option>
-                <option value="thrash">THRASH / SPEED (Pure Attack)</option>
-                <option value="heavy">HEAVY METAL (Steel Balance)</option>
-                <option value="ska">SKA / SKA-PUNK (Slam & Brass)</option>
-                <option value="urbano">ROCK URBANO / PUNK (Raw Street)</option>
-                <option value="postpunk">POST-PUNK / DARK WAVE (Cold Edge)</option>
-                <option value="alternativo">ALTERNATIVE ROCK (Modern Punch)</option>
-                <option value="grunge">GRUNGE (Seattle Weight)</option>
-                <option value="indie">INDIE / MYSTIC (Sacred Atmos)</option>
-                <option value="blues">BLUES (The Devil's Soul)</option>
+                <option value="death">MODO: DEATH METAL (MURO DE SONIDO)</option>
+                <option value="urbano">MODO: ROCK URBANO / PUNK</option>
+                <option value="comercial">MODO: TRAP / REGGAETON / SALSA</option>
             </select>
-            <br>
-            <button id="btn-detonar">¡DETONAR METAMORFOSIS! 💥 <br> <span style="font-size:0.7rem;">(DETONATE METAMORPHOSIS!)</span></button>
+
+            <button id="btn-detonar">¡DETONAR METAMORFOSIS! 💥</button>
         </div>
-        
+
         <div id="descarga-zona">
-            <h3 style="color: #0f0;">¡MASTERIZACIÓN COMPLETADA! <br> <small>(MASTERING COMPLETE!)</small></h3>
-            <audio id="reproductor" controls style="width: 100%;"></audio>
-            <br><br>
-            <a id="link-descarga" class="btn-download" target="_blank">📥 DESCARGAR MÁSTER FINAL <br> <small>(DOWNLOAD FINAL MASTER)</small></a>
+            <h3 style="color: #0f0;">¡MASTERIZACIÓN LISTA!</h3>
+            <audio id="reproductor" controls style="width:100%;"></audio>
+            <a id="link-descarga" class="btn-download">📥 DESCARGAR MÁSTER FINAL</a>
         </div>
     </div>
 
     <script>
-        // PROTECCIÓN CONTRA RATAS (VPN/PROXY)
-        function validarCadenero() {
-            const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const erizo = window.navigator.webdriver || (!zona.includes("Mexico") && navigator.language.includes("es-MX"));
-            return erizo;
+        // LLAVE MAESTRA
+        function accesoMaestro() {
+            const clave = prompt("DI LAS PALABRAS MALDITAS:");
+            if (clave && (clave.toLowerCase() === "ábreme esta m***** 666" || clave.toLowerCase() === "abreme esta mierda 666")) {
+                alert("BIENVENIDO AL BÚNKER, MAESTRO.");
+            } else {
+                alert("LÁRGATE, PINCHE POSER.");
+            }
         }
 
         const btnDetonar = document.getElementById('btn-detonar');
-        if (validarCadenero()) {
-            btnDetonar.disabled = true;
-            document.getElementById('cadenero-alerta').style.display = 'block';
-            document.getElementById('interfaz-motor').style.opacity = '0.1';
-        }
-
+        
         btnDetonar.onclick = async () => {
-            const input = document.getElementById('archivo');
-            if (!input.files[0]) return alert("Upload your track first, carnal!");
-            
-            const gen = document.getElementById('genero').value;
-            alert(`METAMORPHOSIS INITIATED: ${gen.toUpperCase()} MODE. Processing...`);
+            const fileInput = document.getElementById('archivo');
+            if (!fileInput.files[0]) {
+                alert("¡Mete la rola al horno primero!");
+                return;
+            }
 
-            const context = new (window.AudioContext || window.webkitAudioContext)();
+            alert("COCINANDO TU ROLA... NO CIERRES LA PÁGINA.");
+
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const reader = new FileReader();
 
             reader.onload = async (e) => {
-                const buffer = await context.decodeAudioData(e.target.result);
-                const source = context.createBufferSource();
+                const arrayBuffer = e.target.result;
+                const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                 
-                // --- INGENIERÍA DE AUDIO DEL ARSENAL ---
-                const eq = context.createBiquadFilter();
-                eq.type = "highshelf"; 
-                eq.frequency.setValueAtTime(5000, context.currentTime);
-                
-                const comp = context.createDynamicsCompressor();
-                comp.threshold.setValueAtTime(-14, context.currentTime); 
-                comp.ratio.setValueAtTime(18, context.currentTime); 
-                comp.knee.setValueAtTime(40, context.currentTime);
+                const source = audioCtx.createBufferSource();
+                source.buffer = audioBuffer;
 
-                const gain = context.createGain(); 
-                gain.gain.setValueAtTime(3.0, context.currentTime); // EL PUNCH
+                // --- CADENA DE SONIDO PROFESIONAL ---
+                const eq = audioCtx.createBiquadFilter();
+                eq.type = "highshelf";
+                eq.frequency.value = 5000;
+                eq.gain.value = 8; // Brillo sin reventar oídos
 
-                // Ajustes según género
-                if(gen === 'death' || gen === 'thrash') { 
-                    eq.gain.setValueAtTime(14, context.currentTime); 
-                    comp.threshold.setValueAtTime(-18, context.currentTime);
-                } else if(gen === 'postpunk' || gen === 'urbano') {
-                    eq.gain.setValueAtTime(12, context.currentTime);
-                } else {
-                    eq.gain.setValueAtTime(8, context.currentTime);
-                }
+                const comp = audioCtx.createDynamicsCompressor();
+                comp.threshold.value = -15;
+                comp.knee.value = 40; // Suavizado para evitar el "gis"
+                comp.ratio.value = 12;
+                comp.attack.value = 0.003;
+                comp.release.value = 0.25;
 
-                source.buffer = buffer;
-                source.connect(eq); eq.connect(comp); comp.connect(gain); gain.connect(context.destination);
+                const gainNode = audioCtx.createGain();
+                gainNode.gain.value = 2.8; // Volumen comercial potente
 
-                const dest = context.createMediaStreamDestination();
-                gain.connect(dest);
+                // Conexión
+                source.connect(eq);
+                eq.connect(comp);
+                comp.connect(gainNode);
+
+                // Grabación interna
+                const dest = audioCtx.createMediaStreamDestination();
+                gainNode.connect(dest);
                 const recorder = new MediaRecorder(dest.stream);
                 const chunks = [];
 
-                recorder.ondataavailable = (ev) => chunks.push(ev.data);
+                recorder.ondataavailable = (evt) => chunks.push(evt.data);
                 recorder.onstop = () => {
                     const blob = new Blob(chunks, { type: 'audio/mp3' });
                     const url = URL.createObjectURL(blob);
                     document.getElementById('reproductor').src = url;
                     document.getElementById('link-descarga').href = url;
-                    document.getElementById('link-descarga').download = `El_Arsenal_Master_${gen}.mp3`;
+                    document.getElementById('link-descarga').download = "El_Arsenal_Master_Final.mp3";
                     document.getElementById('descarga-zona').style.display = 'block';
-                    alert("MASTER READY! Download now.");
+                    alert("¡HORNO LISTO! Ya puedes descargar.");
                 };
 
                 recorder.start();
                 source.start(0);
-                source.onended = () => { recorder.stop(); };
+                source.onended = () => recorder.stop();
             };
-            reader.readAsArrayBuffer(input.files[0]);
+            
+            reader.readAsArrayBuffer(fileInput.files[0]);
         };
     </script>
 </body>
-                                                                                                                                       </html>
-
+</html>
