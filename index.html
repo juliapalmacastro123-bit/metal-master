@@ -3,147 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL ARSENAL | MASTERING DE GUERRA</title>
+    <title>EL ARSENAL | MASTERING EXTREMO</title>
     <style>
-        body {
-            background-color: #050505;
-            color: #e0e0e0;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            border: 10px solid #1a1a1a;
-        }
-
-        h1 { color: #ff0000; text-shadow: 3px 3px #550000; letter-spacing: 5px; font-size: 3rem; }
-        
-        #bunker {
-            background: #111;
-            border: 2px solid #ff0000;
-            padding: 40px;
-            box-shadow: 0 0 20px #ff0000;
-            text-align: center;
-            max-width: 500px;
-        }
-
-        select, input {
-            background: #222;
-            color: #fff;
-            border: 1px solid #ff0000;
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-        }
-
-        button {
-            background: #ff0000;
-            color: #000;
-            font-weight: bold;
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.2s;
-        }
-
-        button:hover { background: #fff; transform: scale(1.1); box-shadow: 0 0 30px #ff0000; }
-
-        #guardián {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #ff0000;
-            color: #000;
-            z-index: 666;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            animation: vibrar 0.1s infinite;
-        }
-
-        @keyframes vibrar {
-            0% { transform: translate(2px, 1px) rotate(0deg); }
-            50% { transform: translate(-1px, -2px) rotate(-1deg); }
-            100% { transform: translate(1px, 2px) rotate(0deg); }
-        }
-
-        .pentagrama {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 2rem;
-            color: #222;
-            cursor: pointer;
-            user-select: none;
-        }
+        body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
+        #bunker { border: 3px solid #f00; padding: 30px; box-shadow: 0 0 15px #f00; display: inline-block; }
+        h1 { text-shadow: 2px 2px #500; font-size: 2.5rem; }
+        button { background: #f00; color: #000; font-weight: bold; padding: 15px 30px; border: none; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #fff; box-shadow: 0 0 20px #f00; }
+        #controles { margin-top: 20px; display: none; }
+        .pentagrama { position: fixed; bottom: 10px; right: 10px; color: #111; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="guardián">
-        <h1>¡¡NO LO CREO!!</h1>
-        <h2>ESA TARJETA NO ES DE ESTE BARRIO</h2>
-        <p>NO SEAS PINCHE VATO MENDIGO Y PAGA LO QUE CORRESPONDE.</p>
-        <button onclick="cerrarGuardián()">VOY A PAGAR BIEN</button>
-    </div>
-
-    <h1>EL ARSENAL</h1>
-    
+    <h1>🎸 EL ARSENAL 🤘</h1>
     <div id="bunker">
-        <h3>ALGORITMO MATA-TOSTADAS ACTIVO</h3>
-        <p>Selecciona el género de tu rola:</p>
-        <select id="genero">
-            <option value="death">DEATH METAL / BLACK</option>
+        <h3>ALGORITMO MATA-TOSTADAS V1.0</h3>
+        <input type="file" id="archivo" accept="audio/*"><br><br>
+        <select id="genero" style="background:#222; color:#fff; padding:5px;">
+            <option value="metal">DEATH / BLACK METAL</option>
             <option value="thrash">THRASH / SPEED</option>
             <option value="urbano">URBANO / CORE</option>
-            <option value="punk">PUNK / GRUNGE</option>
-        </select>
-        
-        <input type="file" id="audio-input" accept="audio/*">
-        
-        <button onclick="detonar()">¡DETONAR! 💥</button>
+        </select><br><br>
+        <button id="btn-detonar">¡DETONAR MASTERING! 💥</button>
+
+        <div id="controles">
+            <p>-- PROCESO COMPLETADO --</p>
+            <audio id="reproductor" controls></audio><br><br>
+            <p style="font-size: 0.8rem;">Escucha la diferencia con el poder del Arsenal</p>
+        </div>
     </div>
 
-    <div class="pentagrama" onclick="accesoVIP()">⛧</div>
+    <div class="pentagrama" onclick="alert('BIENVENIDO JEFE ERICK. EL BÚNKER ES TUYO.')">⛧</div>
 
     <script>
-        function detonar() {
-            // SIMULACIÓN DE DETECTOR DE MAÑOSOS (Aquí podrías usar una API de IP)
-            // Por ahora, simulamos que si selecciona "Urbano" detectamos la VPN
-            const archivo = document.getElementById('audio-input').files[0];
-            if(!archivo) {
-                alert("Sube una rola primero, no mames.");
-                return;
-            }
+        const btnDetonar = document.getElementById('btn-detonar');
+        const archivoInput = document.getElementById('archivo');
+        const reproductor = document.getElementById('reproductor');
+        const controles = document.getElementById('controles');
 
-            // Aquí puedes poner una lógica real de IP, por ahora es un azar para prueba
-            let esMañoso = Math.random() < 0.3; 
+        btnDetonar.onclick = async () => {
+            if (!archivoInput.files[0]) return alert("Sube la rola, carnal.");
+            
+            alert("PROCESANDO CON ESTEROIDES... ESPERA EL CHINGADAZO.");
+            
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            const source = context.createBufferSource();
+            const fileReader = new FileReader();
 
-            if(esMañoso) {
-                document.getElementById('guardián').style.display = 'flex';
-                // Aquí sonaría el gutural "NO LO CREO"
-            } else {
-                alert("PROCESANDO " + archivo.name + " CON ESTEROIDES... \n\n¡ESPERA EL CHINGADAZO DE SONIDO!");
-            }
-        }
+            fileReader.onload = async (e) => {
+                const arrayBuffer = e.target.result;
+                const audioBuffer = await context.decodeAudioData(arrayBuffer);
+                
+                // --- EL MOTOR DE GUERRA (Nodos de Audio) ---
+                const compressor = context.createDynamicsCompressor();
+                compressor.threshold.setValueAtTime(-20, context.currentTime); // El "Mata-Tostadas"
+                compressor.knee.setValueAtTime(40, context.currentTime);
+                compressor.ratio.setValueAtTime(12, context.currentTime);
+                compressor.attack.setValueAtTime(0, context.currentTime);
+                compressor.release.setValueAtTime(0.25, context.currentTime);
 
-        function accesoVIP() {
-            let pass = prompt("CÓDIGO DEL CAOS:");
-            if(pass === "666") {
-                alert("BIENVENIDO AL BÚNKER, JEFE ERICK. EL ARSENAL ES TUYO.");
-            }
-        }
+                const gainNode = context.createGain();
+                gainNode.gain.setValueAtTime(1.8, context.currentTime); // ¡MÁS VOLUMEN!
 
-        function cerrarGuardián() {
-            document.getElementById('guardián').style.display = 'none';
-        }
+                // Conectar todo
+                source.buffer = audioBuffer;
+                source.connect(compressor);
+                compressor.connect(gainNode);
+                gainNode.connect(context.destination);
+
+                // Crear el preview para el usuario
+                const dest = context.createMediaStreamDestination();
+                gainNode.connect(dest);
+                
+                const mediaRecorder = new MediaRecorder(dest.stream);
+                const chunks = [];
+                mediaRecorder.ondataavailable = (evt) => chunks.push(evt.data);
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'audio/mp3' });
+                    reproductor.src = URL.createObjectURL(blob);
+                    controles.style.display = 'block';
+                };
+
+                mediaRecorder.start();
+                source.start(0);
+                
+                // Procesamos solo 15 segundos para el preview rápido
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                    source.stop();
+                    alert("¡LISTO! DALE PLAY Y SIENTE EL PODER.");
+                }, 15000); 
+            };
+            fileReader.readAsArrayBuffer(archivoInput.files[0]);
+        };
     </script>
 </body>
-  </html>
+</html>
+
   
