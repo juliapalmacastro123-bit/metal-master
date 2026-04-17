@@ -2,109 +2,108 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL ARSENAL 666 - DARK MASTERING</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EL ARSENAL 666</title>
     <style>
-        body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
+        body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 10px; margin: 0; box-sizing: border-box; overflow-x: hidden; min-height: 100vh; position: relative; }
         
-        /* LLAVE MAESTRA ERICK (Pentagrama Invisible) */
-        #pentagrama-erick { 
-            position: fixed; bottom: 15px; right: 15px; width: 40px; height: 40px; 
-            cursor: pointer; opacity: 0.1; z-index: 1000; 
+        /* TU LLAVE MAESTRA: MARCA DE AGUA MORDIDA EN LA ESQUINA */
+        #erick-key { 
+            position: fixed; bottom: 0; right: 0; width: 45px; height: 45px; 
+            cursor: pointer; opacity: 0.12; z-index: 999; padding: 5px;
         }
-        #pentagrama-erick:hover { opacity: 0.6; }
+        #erick-key svg { fill: #440000; width: 100%; height: 100%; }
 
         #bunker { 
-            border: 3px solid #f00; padding: 20px; box-shadow: 0 0 30px #f00; 
+            border: 3px solid #f00; padding: 15px; box-shadow: 0 0 25px #f00; 
             display: inline-block; background: #050505; border-radius: 12px; 
-            max-width: 95%; margin-top: 5px;
+            width: 100%; max-width: 380px; margin-top: 5px; box-sizing: border-box;
         }
 
-        h1 { text-shadow: 3px 3px #800; font-size: 2.2rem; margin: 10px 0; letter-spacing: 3px; }
+        h1 { text-shadow: 2px 2px #800; font-size: 1.7rem; margin: 10px 0; letter-spacing: 2px; }
         
-        .precios { margin: 15px 0; font-size: 0.85rem; color: #0f0; border-collapse: collapse; width: 100%; }
-        .precios th { color: #fff; border-bottom: 2px solid #f00; padding: 8px; background: #1a0000; }
-        .precios td { border: 1px solid #222; padding: 10px; }
+        .precios { margin: 10px 0; font-size: 0.75rem; color: #0f0; border-collapse: collapse; width: 100%; }
+        .precios th { color: #fff; border-bottom: 2px solid #f00; padding: 6px; background: #1a0000; }
+        .precios td { border: 1px solid #222; padding: 8px; }
         
-        /* BOTÓN DE PAGO PARA CLIENTES */
         #zona-pago { display: block; }
         .btn-pago { 
-            background: #0f0; color: #000; padding: 18px; font-size: 1.1rem; 
+            background: #0f0; color: #000; padding: 15px; font-size: 1rem; 
             font-weight: bold; text-decoration: none; display: block; 
-            margin: 20px auto; border-radius: 8px; border: 3px solid #fff; 
-            text-transform: uppercase; animation: pulse 2s infinite; 
+            margin: 15px auto; border-radius: 8px; border: 2px solid #fff; 
+            text-transform: uppercase;
         }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,255,0,0.7); } 70% { box-shadow: 0 0 0 15px rgba(0,255,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,255,0,0); } }
+
+        .instruccion { color: #ccc; font-size: 0.75rem; margin: 15px 0 5px; text-transform: uppercase; font-weight: bold; }
 
         select, input[type="file"] { 
             background: #000; color: #f00; border: 2px solid #f00; 
-            padding: 12px; font-weight: bold; width: 100%; margin-bottom: 15px; 
+            padding: 12px; font-weight: bold; width: 100%; margin-bottom: 12px; 
+            box-sizing: border-box; font-size: 0.85rem; border-radius: 5px;
         }
 
         button { 
-            background: #f00; color: #000; font-weight: bold; padding: 22px; 
+            background: #f00; color: #000; font-weight: bold; padding: 20px; 
             border: none; cursor: pointer; border-radius: 5px; width: 100%; 
-            box-shadow: 0 6px #800; font-size: 1.2rem; text-transform: uppercase;
+            box-shadow: 0 5px #800; font-size: 1.1rem; text-transform: uppercase;
         }
-        button:active { transform: translateY(4px); box-shadow: 0 2px #800; }
+        button:active { transform: translateY(3px); box-shadow: 0 2px #800; }
 
-        #descarga-zona { display: none; margin-top: 30px; border-top: 3px dashed #0f0; padding-top: 20px; }
-        .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: block; margin-top: 10px; border-radius: 5px; border: 1px solid #fff; }
+        #descarga-zona { display: none; margin-top: 20px; border-top: 2px dashed #0f0; padding-top: 15px; }
+        .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: block; margin-top: 10px; border-radius: 5px; }
+        .en { font-size: 0.6rem; color: #aaa; display: block; font-style: italic; text-transform: none; }
     </style>
 </head>
 <body>
-
-    <div id="pentagrama-erick" onclick="accesoErick()">
-        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#f00" stroke-width="2"/><path d="M50 5 L63 38 L95 38 L69 59 L79 92 L50 72 L21 92 L31 59 L5 38 L37 38 Z" fill="none" stroke="#f00" stroke-width="2"/></svg>
-    </div>
 
     <div id="bunker">
         <h1>🎸 EL ARSENAL 🤘</h1>
         
         <table class="precios">
-            <tr><th>PLAN DE PODER</th><th>MÉXICO</th><th>GLOBAL</th></tr>
+            <tr><th>PLAN <span class="en">(POWER PLAN)</span></th><th>MEX</th><th>GLOBAL <span class="en">(USD)</span></th></tr>
             <tr><td>1 SONG MASTER</td><td>$100</td><td>$20</td></tr>
-            <tr style="color: #ff0;"><td>FULL ALBUM (8)</td><td>$500</td><td>$95</td></tr>
+            <tr style="color: #ff0;"><td>FULL ALBUM (8) <span class="en">(Full Master)</span></td><td>$500</td><td>$95</td></tr>
         </table>
 
         <div id="zona-pago">
-            <a href="https://link.mercadopago.com.mx/elarsenalerick" target="_blank" class="btn-pago">💰 1. PAGA AQUÍ / PAY HERE</a>
+            <a href="https://link.mercadopago.com.mx/elarsenalerick" target="_blank" class="btn-pago">💰 PAGA AQUÍ / PAY HERE</a>
         </div>
 
-        <div id="interfaz">
-            <p style="color: #ccc;">2. SUBE TU ROLA AL HORNO:</p>
-            <input type="file" id="archivo" accept="audio/*">
-            
-            <select id="genero">
-                <option value="death">1. DEATH / BLACK METAL</option>
-                <option value="thrash">2. THRASH / SPEED</option>
-                <option value="heavy">3. HEAVY METAL</option>
-                <option value="urbano">4. ROCK URBANO / PUNK</option>
-                <option value="postpunk">5. POST-PUNK / DARK WAVE</option>
-                <option value="grunge">6. GRUNGE (SEATTLE)</option>
-                <option value="alternativo">7. ALTERNATIVE ROCK</option>
-                <option value="ska">8. SKA / SKA-PUNK</option>
-                <option value="indie">9. INDIE / MYSTIC</option>
-                <option value="blues">10. BLUES / HARD ROCK</option>
-            </select>
+        <p class="instruccion">SUBE TU TRACK <span class="en">(UPLOAD)</span>:</p>
+        <input type="file" id="archivo" accept="audio/*">
+        
+        <select id="genero">
+            <option value="death">1. DEATH / BLACK METAL (Wall)</option>
+            <option value="thrash">2. THRASH / SPEED (Attack)</option>
+            <option value="heavy">3. HEAVY METAL (Steel)</option>
+            <option value="urbano">4. ROCK URBANO / PUNK (Raw)</option>
+            <option value="postpunk">5. POST-PUNK / DARK WAVE (Cold)</option>
+            <option value="grunge">6. GRUNGE (Seattle)</option>
+            <option value="alternativo">7. ALTERNATIVE ROCK (Punch)</option>
+            <option value="ska">8. SKA / SKA-PUNK (Slam)</option>
+            <option value="indie">9. INDIE / MYSTIC (Atmo)</option>
+            <option value="blues">10. BLUES / HARD ROCK (Soul)</option>
+        </select>
 
-            <button id="btn-detonar">¡DETONAR METAMORFOSIS! 💥</button>
-        </div>
+        <button id="btn-detonar">DETONAR METAMORFOSIS! 💥 <span class="en" style="color:#000; font-weight:bold;">(MASTERING)</span></button>
 
         <div id="descarga-zona">
-            <h3 style="color: #0f0;">MÁSTER COMPLETADO CON ÉXITO</h3>
+            <h3 style="color: #0f0;">MÁSTER LISTO <span class="en">(READY)</span></h3>
             <audio id="reproductor" controls style="width:100%;"></audio>
-            <a id="link-descarga" class="btn-download">📥 DESCARGAR MÁSTER PROFESIONAL</a>
+            <a id="link-descarga" class="btn-download">📥 DESCARGAR / DOWNLOAD</a>
         </div>
     </div>
 
+    <div id="erick-key" onclick="accesoErick()">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke-width="2"/><path d="M50 5 L63 38 L95 38 L69 59 L79 92 L50 72 L21 92 L31 59 L5 38 L37 38 Z" fill="none" stroke-width="2"/></svg>
+    </div>
+
     <script>
-        // FUNCIÓN PARA QUE TÚ NO PAGUES
         function accesoErick() {
             const clave = prompt("DI LA FRASE DE PODER:");
             if (clave && clave.toLowerCase().includes("abreme esta mierda 666")) {
                 document.getElementById('zona-pago').style.display = 'none';
-                alert("BIENVENIDO, ERICK. EL HORNO ES TUYO GRATIS.");
+                alert("MODO MAESTRO ACTIVADO. EL HORNO ES TUYO GRATIS.");
             }
         }
 
@@ -112,8 +111,6 @@
             const file = document.getElementById('archivo').files[0];
             if (!file) return alert("Sube el track primero.");
             
-            alert("PROCESANDO EN EL ARSENAL... DALE UN MOMENTO.");
-
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const reader = new FileReader();
 
@@ -122,20 +119,19 @@
                 const source = audioCtx.createBufferSource();
                 source.buffer = buffer;
 
-                // --- CALIBRACIÓN DE AUDIO DE RESPETO ---
+                // MOTOR DE AUDIO PROFESIONAL (SIN BARRIDO)
                 const eq = audioCtx.createBiquadFilter();
                 eq.type = "highshelf"; eq.frequency.value = 5000; eq.gain.value = 9;
 
                 const comp = audioCtx.createDynamicsCompressor();
-                comp.threshold.value = -15; comp.ratio.value = 14; comp.knee.value = 40;
+                comp.threshold.value = -15; comp.ratio.value = 14;
 
                 const gain = audioCtx.createGain(); 
-                gain.gain.value = 3.1; // El volumen criminal que querías
+                gain.gain.value = 3.1;
 
                 source.connect(eq); eq.connect(comp); comp.connect(gain); gain.connect(audioCtx.destination);
                 const dest = audioCtx.createMediaStreamDestination();
                 gain.connect(dest);
-                
                 const recorder = new MediaRecorder(dest.stream);
                 const chunks = [];
 
@@ -145,15 +141,9 @@
                     const url = URL.createObjectURL(blob);
                     document.getElementById('reproductor').src = url;
                     document.getElementById('link-descarga').href = url;
-                    document.getElementById('link-descarga').download = "Arsenal_Master_Final.mp3";
+                    document.getElementById('link-descarga').download = "Master_Arsenal.mp3";
                     document.getElementById('descarga-zona').style.display = 'block';
                 };
-                
                 recorder.start(); source.start(0);
-                source.onended = () => recorder.stop();
-            };
-            reader.readAsArrayBuffer(file);
-        };
-    </script>
-</body>
-</html>
+                source.onended = ()
+        
