@@ -3,102 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL ARSENAL | MASTERING EXTREMO</title>
+    <title>EL ARSENAL: LA METAMORFOSIS DEL ROCK</title>
     <style>
         body { background: #000; color: #f00; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
-        #bunker { border: 3px solid #f00; padding: 30px; box-shadow: 0 0 15px #f00; display: inline-block; }
-        h1 { text-shadow: 2px 2px #500; font-size: 2.5rem; }
-        button { background: #f00; color: #000; font-weight: bold; padding: 15px 30px; border: none; cursor: pointer; margin-top: 10px; }
-        button:hover { background: #fff; box-shadow: 0 0 20px #f00; }
-        #controles { margin-top: 20px; display: none; }
-        .pentagrama { position: fixed; bottom: 10px; right: 10px; color: #111; cursor: pointer; }
+        #bunker { border: 3px solid #f00; padding: 20px; box-shadow: 0 0 25px #f00; display: inline-block; background: #050505; border-radius: 12px; max-width: 98%; }
+        h1 { text-shadow: 3px 3px #800; font-size: 2.2rem; color: #f00; letter-spacing: 2px; margin-bottom: 5px; }
+        h2 { color: #fff; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; }
+        
+        /* EL GRITO GUTURAL DEL CADENERO */
+        #cadenero-alerta { display: none; background: #f00; color: #fff; padding: 20px; border: 4px double #fff; margin-bottom: 20px; font-weight: bold; font-size: 1.3rem; }
+
+        .precios { margin: 15px 0; font-size: 0.75rem; color: #0f0; border-collapse: collapse; width: 100%; text-align: center; }
+        .precios th { color: #fff; text-transform: uppercase; border-bottom: 2px solid #f00; padding: 8px; background: #1a0000; }
+        .precios td { border: 1px solid #222; padding: 10px; }
+        
+        /* BOTÓN DE PAGO */
+        .btn-pago { background: #0f0; color: #000; padding: 18px; font-size: 1.1rem; font-weight: bold; text-decoration: none; display: block; margin: 20px auto; border-radius: 8px; border: 3px solid #fff; text-transform: uppercase; }
+        .btn-pago:hover { background: #fff; box-shadow: 0 0 20px #0f0; }
+        
+        select { background: #000; color: #f00; border: 2px solid #f00; padding: 12px; font-weight: bold; width: 95%; margin-bottom: 15px; font-size: 0.9rem; }
+        input[type="file"] { color: #fff; margin-bottom: 15px; }
+        
+        button { background: #f00; color: #000; font-weight: bold; padding: 18px 30px; border: none; cursor: pointer; border-radius: 5px; text-transform: uppercase; font-size: 1rem; }
+        button:hover { background: #fff; box-shadow: 0 0 25px #f00; }
+        button:disabled { background: #222 !important; color: #444 !important; cursor: not-allowed !important; box-shadow: none !important; }
+        
+        #descarga-zona { display: none; margin-top: 30px; border-top: 2px dashed #0f0; padding-top: 20px; }
+        .btn-download { background: #0f0; color: #000; padding: 15px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-    <h1>🎸 EL ARSENAL 🤘</h1>
-    <div id="bunker">
-        <h3>ALGORITMO MATA-TOSTADAS V1.0</h3>
-        <input type="file" id="archivo" accept="audio/*"><br><br>
-        <select id="genero" style="background:#222; color:#fff; padding:5px;">
-            <option value="metal">DEATH / BLACK METAL</option>
-            <option value="thrash">THRASH / SPEED</option>
-            <option value="urbano">URBANO / CORE</option>
-        </select><br><br>
-        <button id="btn-detonar">¡DETONAR MASTERING! 💥</button>
+    <div id="cadenero-alerta">
+        🚨 ¡GRITO GUTURAL! 🚨<br><br>
+        NO SEAS VATO ERIZO.<br>
+        <span style="font-size: 0.8rem;">VPN O UBICACIÓN FALSA DETECTADA. ACCESO AL MOTOR BLOQUEADO.</span>
+    </div>
 
-        <div id="controles">
-            <p>-- PROCESO COMPLETADO --</p>
-            <audio id="reproductor" controls></audio><br><br>
-            <p style="font-size: 0.8rem;">Escucha la diferencia con el poder del Arsenal</p>
+    <h1>🎸 EL ARSENAL 🤘</h1>
+    <h2>LA METAMORFOSIS DEL ROCK</h2>
+
+    <div id="bunker">
+        <table class="precios">
+            <tr>
+                <th>PRODUCCIÓN</th>
+                <th>MÉXICO</th>
+                <th>GLOBAL (USD/EUR)</th>
+            </tr>
+            <tr>
+                <td>1 Song</td>
+                <td>$100</td>
+                <td>$15</td>
+            </tr>
+            <tr style="color:#ff0; font-weight:bold;">
+                <td>6 Songs (EP)</td>
+                <td>$350</td>
+                <td>$65</td>
+            </tr>
+            <tr style="color:#ff0; font-weight:bold;">
+                <td>8 Songs (LP)</td>
+                <td>$500</td>
+                <td>$85</td>
+            </tr>
+        </table>
+
+        <a href="TU_LINK_DE_PAGO_AQUÍ" target="_blank" class="btn-pago">💰 1. PAGA AQUÍ PARA ACTIVAR EL MOTOR</a>
+
+        <div id="interfaz-motor">
+            <p style="color: #ccc; font-size: 0.9rem;">2. Después de pagar, sube tu archivo:</p>
+            <input type="file" id="archivo" accept="audio/*"><br>
+
+            <select id="genero">
+                <option value="death">DEATH / BLACK METAL - El Muro de Sonido</option>
+                <option value="thrash">THRASH / SPEED - Ataque Puro</option>
+                <option value="heavy">HEAVY METAL - El Balance del Acero</option>
+                <option value="ska">SKA / SKA-PUNK - Slam y Metales</option>
+                <option value="urbano">ROCK URBANO / PUNK - Calle y Mugre</option>
+                <option value="postpunk">POST-PUNK / DARK WAVE - Frío y Cortante</option>
+                <option value="alternativo">ROCK ALTERNATIVO - El Punch Moderno</option>
+                <option value="grunge">GRUNGE - Pesadez de Seattle</option>
+                <option value="indie">INDIE / MÍSTICO - Atmósfera Sagrada</option>
+                <option value="blues">BLUES - El Alma del Diablo</option>
+            </select>
+            <br>
+            <button id="btn-detonar">¡DETONAR METAMORFOSIS COMPLETA! 💥</button>
+        </div>
+        
+        <div id="descarga-zona">
+            <h3 style="color: #0f0;">¡METAMORFOSIS COMPLETADA!</h3>
+            <audio id="reproductor" controls style="width: 100%;"></audio>
+            <br><br>
+            <a id="link-descarga" class="btn-download">📥 DESCARGAR MÁSTER FINAL</a>
+            <p style="color: #666; font-size: 0.7rem; margin-top: 15px;">Powered by El Arsenal. Ingeniera de Erick.</p>
         </div>
     </div>
 
-    <div class="pentagrama" onclick="alert('BIENVENIDO JEFE ERICK. EL BÚNKER ES TUYO.')">⛧</div>
-
     <script>
+        // EL CADENERO: Seguridad total
+        function validarCadenero() {
+            const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const lang = navigator.language;
+            // Bloqueo si hay VPN o incongruencia
+            if (window.navigator.webdriver || (!zona.includes("Mexico") && lang.includes("es-MX"))) return true;
+            return false;
+        }
+
         const btnDetonar = document.getElementById('btn-detonar');
-        const archivoInput = document.getElementById('archivo');
-        const reproductor = document.getElementById('reproductor');
-        const controles = document.getElementById('controles');
+        const alerta = document.getElementById('cadenero-alerta');
+
+        if (validarCadenero()) {
+            btnDetonar.disabled = true;
+            alerta.style.display = 'block';
+        }
 
         btnDetonar.onclick = async () => {
-            if (!archivoInput.files[0]) return alert("Sube la rola, carnal.");
-            
-            alert("PROCESANDO CON ESTEROIDES... ESPERA EL CHINGADAZO.");
-            
+            const input = document.getElementById('archivo');
+            if (!input.files[0]) return alert("Sube la rola primero, carnal.");
+
+            const gen = document.getElementById('genero').value;
+            alert(`METAMORFOSIS INICIADA: MODO ${gen.toUpperCase()}. NO CIERRES ESTA PÁGINA.`);
+
             const context = new (window.AudioContext || window.webkitAudioContext)();
-            const source = context.createBufferSource();
-            const fileReader = new FileReader();
+            const reader = new FileReader();
 
-            fileReader.onload = async (e) => {
-                const arrayBuffer = e.target.result;
-                const audioBuffer = await context.decodeAudioData(arrayBuffer);
+            reader.onload = async (e) => {
+                const buffer = await context.decodeAudioData(e.target.result);
+                const source = context.createBufferSource();
                 
-                // --- EL MOTOR DE GUERRA (Nodos de Audio) ---
-                const compressor = context.createDynamicsCompressor();
-                compressor.threshold.setValueAtTime(-20, context.currentTime); // El "Mata-Tostadas"
-                compressor.knee.setValueAtTime(40, context.currentTime);
-                compressor.ratio.setValueAtTime(12, context.currentTime);
-                compressor.attack.setValueAtTime(0, context.currentTime);
-                compressor.release.setValueAtTime(0.25, context.currentTime);
+                // CADENA DE PROCESAMIENTO
+                const eq = context.createBiquadFilter();
+                eq.type = "highshelf"; eq.frequency.setValueAtTime(4800, context.currentTime);
+                
+                const comp = context.createDynamicsCompressor();
+                comp.threshold.setValueAtTime(-14, context.currentTime);
+                comp.ratio.setValueAtTime(20, context.currentTime);
+                
+                const gain = context.createGain();
+                gain.gain.setValueAtTime(2.5, context.currentTime);
 
-                const gainNode = context.createGain();
-                gainNode.gain.setValueAtTime(1.8, context.currentTime); // ¡MÁS VOLUMEN!
+                // Ajuste por género
+                if(gen === 'death') eq.gain.setValueAtTime(12, context.currentTime);
+                else if(gen === 'grunge') eq.gain.setValueAtTime(3, context.currentTime);
+                else eq.gain.setValueAtTime(8, context.currentTime);
 
-                // Conectar todo
-                source.buffer = audioBuffer;
-                source.connect(compressor);
-                compressor.connect(gainNode);
-                gainNode.connect(context.destination);
+                source.buffer = buffer;
+                source.connect(eq); eq.connect(comp); comp.connect(gain); gain.connect(context.destination);
 
-                // Crear el preview para el usuario
+                // Grabadora para el archivo final
                 const dest = context.createMediaStreamDestination();
-                gainNode.connect(dest);
-                
-                const mediaRecorder = new MediaRecorder(dest.stream);
+                gain.connect(dest);
+                const recorder = new MediaRecorder(dest.stream);
                 const chunks = [];
-                mediaRecorder.ondataavailable = (evt) => chunks.push(evt.data);
-                mediaRecorder.onstop = () => {
+
+                recorder.ondataavailable = (ev) => chunks.push(ev.data);
+                recorder.onstop = () => {
                     const blob = new Blob(chunks, { type: 'audio/mp3' });
-                    reproductor.src = URL.createObjectURL(blob);
-                    controles.style.display = 'block';
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('reproductor').src = url;
+                    document.getElementById('link-descarga').href = url;
+                    document.getElementById('link-descarga').download = `Master_Arsenal_${gen}.mp3`;
+                    document.getElementById('descarga-zona').style.display = 'block';
+                    alert("¡METAMORFOSIS LOGRADA! Descarga tu máster.");
                 };
 
-                mediaRecorder.start();
+                recorder.start();
                 source.start(0);
-                
-                // Procesamos solo 15 segundos para el preview rápido
-                setTimeout(() => {
-                    mediaRecorder.stop();
-                    source.stop();
-                    alert("¡LISTO! DALE PLAY Y SIENTE EL PODER.");
-                }, 15000); 
+                source.onended = () => recorder.stop();
             };
-            fileReader.readAsArrayBuffer(archivoInput.files[0]);
+            reader.readAsArrayBuffer(input.files[0]);
         };
     </script>
 </body>
-</html>
+    </html>
+
 
   
